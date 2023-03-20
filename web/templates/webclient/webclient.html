@@ -8,6 +8,9 @@
 
 {% block client %}
 
+{% load django_svelte %}
+{% display_svelte "App.svelte" %}
+
 <!-- Basic toolbar -->
 <div id="toolbar"></div>
 
