@@ -34,6 +34,7 @@ from evennia.settings_default import *
 # This is the name of your game. Make it catchy!
 SERVERNAME = "lorecraft"
 
+INSTALLED_APPS += ('django_svelte',)
 
 ######################################################################
 # Settings given in secret_settings.py override those in this file.
