@@ -7,7 +7,7 @@ Commands describe the input the account can do to the game.
 
 from evennia.commands.command import Command as BaseCommand
 
-# from evennia import default_cmds
+from evennia import default_cmds
 
 
 class Command(BaseCommand):
@@ -31,6 +31,12 @@ class Command(BaseCommand):
     #         every command, like prompts.
     #
     pass
+
+class CmdLook(default_cmds.CmdLook):
+
+    def func(self):
+        super().func()
+        self.caller.msg('sanity check')
 
 
 # -------------------------------------------------------------
