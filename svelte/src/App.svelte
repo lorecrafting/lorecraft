@@ -41,7 +41,7 @@
 <main>
 	<h1>{name}</h1>
 	<p>{@html desc}</p>
-	<p>{contents}</p>
+	{#if contents} <p>{contents}</p> {/if}
 	<p> {#if exits.length > 0}
 			You can go
 		{/if}
