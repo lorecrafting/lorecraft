@@ -59,7 +59,6 @@ else:
 
 #include svelte managed webclient output files
 STATICFILES_DIRS += [os.path.join(GAME_DIR, "svelte", "public", "build")]
-print(STATICFILES_DIRS)
 
 ######################################################################
 # Settings given in secret_settings.py override those in this file.
