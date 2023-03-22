@@ -6,11 +6,12 @@
 
 	function handleWindowLoad() {
 		window.Evennia.emitter.on("room_data", function(empty, roomData) {
-		name = roomData.name;
-		desc = roomData.desc;
-		contents = roomData.contents;
-		exits = roomData.exits;
-		console.log(roomData)})
+			name = roomData.name;
+			desc = roomData.desc;
+			contents = roomData.contents;
+			exits = roomData.exits;
+			console.log(roomData)
+		})
 	}
 </script>
 
@@ -18,7 +19,7 @@
 
 <main>
 	<h1>{name}</h1>
-	<p>{desc}</p>
+	<p>{@html desc}</p>
 	<p>{contents}</p>
 	<p>{exits}</p>
 </main>
