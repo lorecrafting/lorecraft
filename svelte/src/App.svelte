@@ -2,7 +2,7 @@
 	export let name;
 	export let desc;
 	export let contents;
-	export let exits;
+	export let exits = [];
 
 	function handleWindowLoad() {
 		window.Evennia.emitter.on("room_data", function(empty, roomData) {
@@ -10,8 +10,11 @@
 			desc = roomData.desc;
 			contents = roomData.contents;
 			exits = roomData.exits;
-			console.log(roomData)
 		})
+	}
+
+	function handleClickExit(exit) {
+		Evennia.msg("text", [exit])
 	}
 </script>
 
@@ -21,7 +24,12 @@
 	<h1>{name}</h1>
 	<p>{@html desc}</p>
 	<p>{contents}</p>
-	<p>{exits}</p>
+	<p>
+		{#each exits as exit}
+		<a on:click={() => handleClickExit(exit)}>{exit}</a>
+		<br>
+		{/each}
+	</p>
 </main>
 
 <style>
@@ -33,10 +41,15 @@
 	}
 
 	h1 {
-		color: #ff3e00;
 		text-transform: uppercase;
 		font-size: 4em;
 		font-weight: 100;
+	}
+
+	a:hover {
+		cursor: pointer;
+		color: rgb(255, 183, 183);
+		text-decoration: underline;
 	}
 
 	@media (min-width: 640px) {
