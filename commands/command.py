@@ -46,7 +46,7 @@ class CmdLook(default_cmds.CmdLook):
                 "contents":  list(set(room.contents) - set(room.exits) - set([self])),
                 "exits": room.exits,
             }
-            self.msg(room_data=room_data)
+            self.msg(room_data = room_data)
 
 
 # -------------------------------------------------------------

@@ -37,29 +37,6 @@ SERVERNAME = "lorecraft"
 
 INSTALLED_APPS += ('django_svelte',)
 
-# Path to the lib directory containing the bulk of the codebase's code.
-EVENNIA_DIR = os.path.dirname(os.path.abspath(__file__))
-# Path to the game directory (containing the server/conf/settings.py file)
-# This is dynamically created- there is generally no need to change this!
-if EVENNIA_DIR.lower() == os.getcwd().lower() or (
-    sys.argv[1] == "test" if len(sys.argv) > 1 else False
-):
-    # unittesting mode
-    GAME_DIR = os.getcwd()
-else:
-    # Fallback location (will be replaced by the actual game dir at runtime)
-    GAME_DIR = os.path.join(EVENNIA_DIR, "game_template")
-    for i in range(10):
-        gpath = os.getcwd()
-        if "server" in os.listdir(gpath):
-            if os.path.isfile(os.path.join("server", "conf", "settings.py")):
-                GAME_DIR = gpath
-                break
-        os.chdir(os.pardir)
-
-#include svelte managed webclient output files
-STATICFILES_DIRS += [os.path.join(GAME_DIR, "svelte", "public", "build")]
-
 ######################################################################
 # Settings given in secret_settings.py override those in this file.
 ######################################################################

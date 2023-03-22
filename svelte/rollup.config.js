@@ -35,7 +35,7 @@ function componentExportDetails(componentName) {
 			sourcemap: true,
 			format: 'iife',
       name: `${componentName.toLowerCase()}`,
-      file: `public/build/${componentName}.js`,
+      file: `../web/static/${componentName}.js`,
 		},
 		plugins: [
 			svelte({
