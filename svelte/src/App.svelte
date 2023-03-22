@@ -1,7 +1,7 @@
 <script>
 	export let name;
 	export let desc;
-	export let contents;
+	export let contents = [];
 	export let exits = [];
 
 	function handleWindowLoad() {
@@ -24,7 +24,10 @@
 	<h1>{name}</h1>
 	<p>{@html desc}</p>
 	<p>{contents}</p>
-	<p>
+	<p> {#if exits.length > 0}
+			You can go:
+			<br>
+		{/if}
 		{#each exits as exit}
 		<a on:click={() => handleClickExit(exit)}>{exit}</a>
 		<br>
@@ -35,17 +38,29 @@
 <style>
 	main {
 		text-align: center;
-		padding: 1em;
+		padding: 2em;
 		max-width: 240px;
 		margin: 0 auto;
 	}
 
-	h1 {
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
+	p {
+		text-align: left;
 	}
 
+	p::first-letter {
+ 	   text-transform:capitalize;
+	}
+
+	h1 {
+		text-transform: uppercase;
+		font-size: 3em;
+		font-weight: 100;
+		margin-bottom: 1.5rem;
+	}
+
+	a {
+		text-decoration: underline;
+	}
 	a:hover {
 		cursor: pointer;
 		color: rgb(255, 183, 183);
