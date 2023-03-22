@@ -8,13 +8,31 @@
 		window.Evennia.emitter.on("room_data", function(empty, roomData) {
 			name = roomData.name;
 			desc = roomData.desc;
-			contents = roomData.contents;
+			contents = _formatContents(roomData.contents);
 			exits = roomData.exits;
 		})
 	}
 
 	function handleClickExit(exit) {
 		Evennia.msg("text", [exit])
+	}
+
+
+	function _formatContents(contents) {
+		let roomItems = contents.map( item => `a ${item}`)
+
+		if (roomItems.length === 1) {
+			return _upcaseFirstChar(`${data[0]}.`)
+		}
+		if (roomItems.length > 1) {
+			let lastItem = roomItems.pop();
+			return _upcaseFirstChar(`${roomItems.join(", ")}, and ${lastItem}.`)
+		}
+		return null
+	}
+
+	function _upcaseFirstChar(str) {
+		return str.charAt(0).toUpperCase() + str.slice(1);
 	}
 </script>
 
