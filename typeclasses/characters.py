@@ -66,7 +66,6 @@ class Character(ObjectParent, DefaultCharacter):
         target.at_desc(looker=self, **kwargs)
 
         if target.typename is 'Room':
-            self.msg('looked AT ROOM!!!!!!')
             if self.location:
                 room = self.location
                 room_data = {
