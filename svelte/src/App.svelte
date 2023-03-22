@@ -41,6 +41,7 @@
 		padding: 2em;
 		max-width: 240px;
 		margin: 0 auto;
+		line-height: 1.5rem;
 	}
 
 	p {
@@ -55,7 +56,7 @@
 		text-transform: uppercase;
 		font-size: 3em;
 		font-weight: 100;
-		margin-bottom: 1.5rem;
+		margin-bottom: 2rem;
 	}
 
 	a {
