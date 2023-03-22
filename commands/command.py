@@ -36,7 +36,17 @@ class CmdLook(default_cmds.CmdLook):
 
     def func(self):
         super().func()
-        self.caller.msg('sanity check')
+
+        if self.caller.location:
+            room = self.caller.location
+            room_data = {
+                "dbref": room.id,
+                "name": room.name,
+                "desc": room.db.desc,
+                "contents":  list(set(room.contents) - set(room.exits) - set([self])),
+                "exits": room.exits,
+            }
+            self.msg(room_data=room_data)
 
 
 # -------------------------------------------------------------
