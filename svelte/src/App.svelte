@@ -1,17 +1,26 @@
 <script>
 	export let name;
+	export let desc;
+	export let contents;
+	export let exits;
 
 	function handleWindowLoad() {
-		window.Evennia.emitter.on("room_data", function(a, b) {
-		console.log(b)})
+		window.Evennia.emitter.on("room_data", function(empty, roomData) {
+		name = roomData.name;
+		desc = roomData.desc;
+		contents = roomData.contents;
+		exits = roomData.exits;
+		console.log(roomData)})
 	}
 </script>
 
 <svelte:window on:load={handleWindowLoad}/>
 
 <main>
-	<h1>Helloi {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<h1>{name}</h1>
+	<p>{desc}</p>
+	<p>{contents}</p>
+	<p>{exits}</p>
 </main>
 
 <style>
