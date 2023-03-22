@@ -43,12 +43,10 @@
 	<p>{@html desc}</p>
 	<p>{contents}</p>
 	<p> {#if exits.length > 0}
-			You can go:
-			<br>
+			You can go
 		{/if}
 		{#each exits as exit}
-		<a on:click={() => handleClickExit(exit)}>{exit}</a>
-		<br>
+		<a on:click={() => handleClickExit(exit)}>{exit}&nbsp;</a>
 		{/each}
 	</p>
 </main>
