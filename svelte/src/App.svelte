@@ -22,17 +22,13 @@
 		let roomItems = contents.map( item => `a ${item}`)
 
 		if (roomItems.length === 1) {
-			return _upcaseFirstChar(`${data[0]}.`)
+			return `You see ${data[0]}.`
 		}
 		if (roomItems.length > 1) {
 			let lastItem = roomItems.pop();
-			return _upcaseFirstChar(`${roomItems.join(", ")}, and ${lastItem}.`)
+			return `You see ${roomItems.join(", ")}, and ${lastItem}.`
 		}
 		return null
-	}
-
-	function _upcaseFirstChar(str) {
-		return str.charAt(0).toUpperCase() + str.slice(1);
 	}
 </script>
 
@@ -55,7 +51,6 @@
 	main {
 		text-align: center;
 		padding: 2em;
-		max-width: 240px;
 		margin: 0 auto;
 		line-height: 1.5rem;
 	}
@@ -82,11 +77,5 @@
 		cursor: pointer;
 		color: rgb(255, 183, 183);
 		text-decoration: underline;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
 	}
 </style>
