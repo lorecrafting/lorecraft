@@ -65,6 +65,7 @@ class Character(ObjectParent, DefaultCharacter):
         # this must be the last reference to target so it may delete itself when acted on.
         target.at_desc(looker=self, **kwargs)
 
+
         if target.typename is 'Room':
             if self.location:
                 room = self.location
@@ -72,12 +73,11 @@ class Character(ObjectParent, DefaultCharacter):
                     "dbref": room.id,
                     "name": room.name,
                     "desc": room.db.desc,
-                    "contents":  list(set(room.contents) - set(room.exits) - set([self])),
+                    "contents":  list(set(room.contents) - set(room.exits) - set(room.contents_get(content_type="character"))),
+                    "characters": list(set(room.contents_get(content_type="character"))),
                     "exits": room.exits,
                 }
                 self.msg(room_data = room_data)
-
-
         return description
 
     pass

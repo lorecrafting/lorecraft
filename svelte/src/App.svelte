@@ -2,6 +2,7 @@
 	export let name;
 	export let desc;
 	export let contents = [];
+	export let characters = [];
 	export let exits = [];
 
 	function handleWindowLoad() {
@@ -9,6 +10,7 @@
 			name = roomData.name;
 			desc = roomData.desc;
 			contents = _formatContents(roomData.contents);
+			characters = _formatCharacters(roomData.characters);
 			exits = roomData.exits;
 		})
 	}
@@ -30,6 +32,19 @@
 		}
 		return null
 	}
+
+	function _formatCharacters(characters) {
+		if (characters.length === 1) {
+			return `${characters[0]} is here.`
+		}
+		if (characters.length === 2) {
+			return `${characters[0]} and ${characters[1]} are here.`
+		}
+		if (characters.length > 2) {
+			let lastChar = characters.pop();
+			return `${characters.join(", ")}, and ${lastChar} are here.`
+		}
+	}
 </script>
 
 <svelte:window on:load={handleWindowLoad}/>
@@ -38,6 +53,7 @@
 	<h1>{name}</h1>
 	<p>{@html desc}</p>
 	{#if contents} <p>{contents}</p> {/if}
+	{#if characters} <p>{characters}</p> {/if}
 	<p> {#if exits.length > 0}
 			You can go
 		{/if}
