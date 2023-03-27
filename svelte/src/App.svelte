@@ -125,6 +125,7 @@
 		display: flex;
 		flex-direction: column;
 		height: 89vh;
+		overflow: hidden;
 	}
 
 	.room-info {
@@ -134,6 +135,9 @@
 	.echo-log {
 		flex: 1 1 auto;
 		overflow-y: scroll;
+		margin-right: -60px;
+		padding-right: 40px;
+		scroll-behavior: smooth;
 	}
 
 	.msg-to-evennia {
@@ -144,6 +148,7 @@
 
 	p {
 		text-align: left;
+		word-wrap: break-word;
 	}
 
 	p::first-letter {
