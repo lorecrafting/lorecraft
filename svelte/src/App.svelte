@@ -50,16 +50,22 @@
 	}
 
 	function _formatCharacters(characters) {
+		let str;
+
 		if (characters.length === 1) {
-			return `${characters[0]} is here.`
+			return _upcaseFirstChar(`${characters[0]} is here.`)
 		}
 		if (characters.length === 2) {
-			return `${characters[0]} and ${characters[1]} are here.`
+			return _upcaseFirstChar(`${characters[0]} and ${characters[1]} are here.`)
 		}
 		if (characters.length > 2) {
 			let lastChar = characters.pop();
-			return `${characters.join(", ")}, and ${lastChar} are here.`
+			return _upcaseFirstChar(`${characters.join(", ")}, and ${lastChar} are here.`)
 		}
+	}
+
+	function _upcaseFirstChar(str) {
+		return str.charAt(0).toUpperCase() + str.slice(1);
 	}
 </script>
 
@@ -69,7 +75,7 @@
 	<h1>{name}</h1>
 	<p>{@html desc}</p>
 	{#if contents}
-		 <p>{contents} &nbsp;
+		 <p>{contents}
 			{#if characters}
 				<span>{characters}</span>
 			{/if}
