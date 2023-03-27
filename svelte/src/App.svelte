@@ -59,7 +59,7 @@
 			You can go
 		{/if}
 		{#each exits as exit}
-			<a on:click={() => handleClickExit(exit)}>{exit}</a><span>&nbsp;</span>
+			<button on:click={() => handleClickExit(exit)}>{exit}</button><span>&nbsp;</span>
 		{/each}
 	</p>
 </main>
@@ -87,10 +87,18 @@
 		margin-bottom: 2rem;
 	}
 
-	a {
+	button {
 		text-decoration: underline;
+		background-color: transparent;
+		border-width: 0;
+		font-family: inherit;
+		font-size: inherit;
+		font-style: inherit;
+		font-weight: inherit;
+		line-height: inherit;
+		padding: 0;
 	}
-	a:hover {
+	button:hover {
 		cursor: pointer;
 		color: rgb(255, 183, 183);
 		text-decoration: underline;
