@@ -6,6 +6,7 @@
 	export let exits = [];
 
 	function handleWindowLoad() {
+		Evennia.init()
 		window.Evennia.emitter.on("room_data", function(empty, roomData) {
 			name = roomData.name;
 			desc = roomData.desc;
@@ -24,7 +25,7 @@
 		let roomItems = contents.map( item => `a ${item}`)
 
 		if (roomItems.length === 1) {
-			return `You see ${data[0]}.`
+			return `You see ${roomItems[0]}.`
 		}
 		if (roomItems.length > 1) {
 			let lastItem = roomItems.pop();
@@ -58,7 +59,7 @@
 			You can go
 		{/if}
 		{#each exits as exit}
-		<a on:click={() => handleClickExit(exit)}>{exit}&nbsp;</a>
+			<a on:click={() => handleClickExit(exit)}>{exit}</a><span>&nbsp;</span>
 		{/each}
 	</p>
 </main>
