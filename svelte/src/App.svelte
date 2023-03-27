@@ -1,4 +1,6 @@
 <script>
+	import { afterUpdate } from "svelte";
+
 	let name;
 	let desc;
 	let contents = [];
@@ -6,6 +8,11 @@
 	let exits = [];
 	let msgToEvennia;
 	let echoLogs = [];
+	let scrollableDiv
+
+	afterUpdate( () => {
+		scrollableDiv.scrollTo(0, scrollableDiv.scrollHeight);
+	})
 
 	function handleWindowLoad() {
 		Evennia.init()
@@ -21,6 +28,7 @@
 				return
 			}
 			echoLogs = [...echoLogs, text[0]]
+
 		})
 	}
 
@@ -30,7 +38,6 @@
 	}
 
 	function onSubmit(e) {
-		console.log(msgToEvennia)
 		Evennia.msg("text", [msgToEvennia])
 		msgToEvennia = '';
 	}
@@ -72,34 +79,34 @@
 <svelte:window on:load={handleWindowLoad}/>
 
 <main>
-	<h1>{name}</h1>
-	<p>{@html desc}</p>
-	{#if contents}
-		 <p>{contents}
-			{#if characters}
-				<span>{characters}</span>
-			{/if}
-		</p>
-	{/if}
-
-	<p> {#if exits.length > 0}
-			You can go
+	<section class="room-info">
+		<h1>{name}</h1>
+		<p>{@html desc}</p>
+		{#if contents}
+			<p>{contents}
+				{#if characters}
+					<span>{characters}</span>
+				{/if}
+			</p>
 		{/if}
-		{#each exits as exit}
-			<button on:click={() => handleClickExit(exit)}>{exit}</button><span>&nbsp;</span>
-		{/each}
-	</p>
 
-	<br>
+		<p> {#if exits.length > 0}
+				You can go
+			{/if}
+			{#each exits as exit}
+				<button on:click={() => handleClickExit(exit)}>{exit}</button><span>&nbsp;</span>
+			{/each}
+		</p>
+	</section>
 
-	<div>
+	<section bind:this={scrollableDiv} class="echo-log">
 		{#each echoLogs as exit}
 			<p> {@html exit} </p>
 		{/each}
-	</div>
+	</section>
 
 
-	<form on:submit|preventDefault={onSubmit}>
+	<form class="msg-to-evennia" on:submit|preventDefault={onSubmit}>
 		<input bind:value={msgToEvennia} type="text">
 	</form>
 </main>
@@ -110,7 +117,25 @@
 		padding: 2em;
 		margin: 0 auto;
 		line-height: 1.5rem;
+		display: flex;
+		flex-direction: column;
+		height: 89vh;
 	}
+
+	.room-info {
+		flex: 0 0 auto;
+	}
+
+	.echo-log {
+		flex: 1 1 auto;
+		overflow-y: scroll;
+	}
+
+	.msg-to-evennia {
+		flex: 0 0 auto;
+	}
+
+	input { width: 100% }
 
 	p {
 		text-align: left;
