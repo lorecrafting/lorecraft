@@ -1,9 +1,11 @@
 <script>
-	export let name;
-	export let desc;
-	export let contents = [];
-	export let characters = [];
-	export let exits = [];
+	let name;
+	let desc;
+	let contents = [];
+	let characters = [];
+	let exits = [];
+	let msgToEvennia;
+	let echoLogs = [];
 
 	function handleWindowLoad() {
 		Evennia.init()
@@ -14,10 +16,23 @@
 			characters = _formatCharacters(roomData.characters);
 			exits = roomData.exits;
 		})
+		window.Evennia.emitter.on("text", function(text, cmd) {
+			if (cmd.type === "look") {
+				return
+			}
+			echoLogs = [...echoLogs, text[0]]
+		})
 	}
 
 	function handleClickExit(exit) {
 		Evennia.msg("text", [exit])
+		echoLogs = [];
+	}
+
+	function onSubmit(e) {
+		console.log(msgToEvennia)
+		Evennia.msg("text", [msgToEvennia])
+		msgToEvennia = '';
 	}
 
 
@@ -53,8 +68,14 @@
 <main>
 	<h1>{name}</h1>
 	<p>{@html desc}</p>
-	{#if contents} <p>{contents}</p> {/if}
-	{#if characters} <p>{characters}</p> {/if}
+	{#if contents}
+		 <p>{contents} &nbsp;
+			{#if characters}
+				<span>{characters}</span>
+			{/if}
+		</p>
+	{/if}
+
 	<p> {#if exits.length > 0}
 			You can go
 		{/if}
@@ -62,6 +83,19 @@
 			<button on:click={() => handleClickExit(exit)}>{exit}</button><span>&nbsp;</span>
 		{/each}
 	</p>
+
+	<br>
+
+	<div>
+		{#each echoLogs as exit}
+			<p> {@html exit} </p>
+		{/each}
+	</div>
+
+
+	<form on:submit|preventDefault={onSubmit}>
+		<input bind:value={msgToEvennia} type="text">
+	</form>
 </main>
 
 <style>
