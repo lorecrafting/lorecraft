@@ -37,6 +37,11 @@
 		echoLogs = [];
 	}
 
+	function handleClickTitle() {
+		Evennia.msg("text", ["look"])
+		echoLogs = [];
+	}
+
 	function onSubmit(e) {
 		Evennia.msg("text", [msgToEvennia])
 		msgToEvennia = '';
@@ -80,7 +85,7 @@
 
 <main>
 	<section class="room-info">
-		<h1>{name}</h1>
+		<h1 on:click={handleClickTitle}>{name}</h1>
 		<p>{@html desc}</p>
 		{#if contents}
 			<p>{contents}
