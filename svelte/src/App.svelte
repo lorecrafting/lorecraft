@@ -21,7 +21,12 @@
 			desc = roomData.desc;
 			contents = _formatContents(roomData.contents);
 			characters = _formatCharacters(roomData.characters);
-			exits = roomData.exits;
+			exits = roomData.exits.filter( (exit) => {
+				return exit === "north" ||
+					   exit === "south" ||
+					   exit === "east" ||
+					   exit === "west"
+			})
 		})
 		window.Evennia.emitter.on("text", function(text, cmd) {
 			if (cmd.type === "look") {
