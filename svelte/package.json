@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c -w",
+    "dev": "node ./scripts/watcher.js",
     "start": "sirv public"
   },
   "devDependencies": {
@@ -17,6 +17,7 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "node-watch": "^0.7.3",
     "sirv-cli": "^1.0.0"
   }
 }
