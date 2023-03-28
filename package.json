@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "svelte-easy-popover": "^1.0.0"
+  }
+}
