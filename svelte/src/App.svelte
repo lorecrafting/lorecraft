@@ -11,8 +11,6 @@
   let echoLogs = [];
   let scrollableDiv;
 
-  const placements = ["top", "right", "left", "bottom"];
-
   afterUpdate(() => {
     scrollableDiv.scrollTo(0, scrollableDiv.scrollHeight);
   });
@@ -56,18 +54,6 @@
     msgToEvennia = "";
   }
 
-  function _formatContents(contents) {
-    let roomItems = contents.map((item) => `a ${item}`);
-
-    if (roomItems.length === 1) {
-      return `You see ${roomItems[0]}.`;
-    }
-    if (roomItems.length > 1) {
-      let lastItem = roomItems.pop();
-      return `You see ${roomItems.join(", ")}, and ${lastItem}.`;
-    }
-    return null;
-  }
 
   function _formatCharacters(characters) {
     let str;
