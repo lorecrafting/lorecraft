@@ -1,6 +1,6 @@
 <script>
   import { afterUpdate } from "svelte";
-  import { Button, Popover } from "sveltestrap";
+  import { Popover } from "sveltestrap";
 
   let name;
   let desc;
@@ -11,7 +11,7 @@
   let echoLogs = [];
   let scrollableDiv;
 
-  const placements = ['top', 'right', 'left', 'bottom'];
+  const placements = ["top", "right", "left", "bottom"];
 
   afterUpdate(() => {
     scrollableDiv.scrollTo(0, scrollableDiv.scrollHeight);
@@ -22,7 +22,7 @@
     window.Evennia.emitter.on("room_data", function (empty, roomData) {
       name = roomData.name;
       desc = roomData.desc;
-      contents = _formatContents(roomData.contents);
+      contents = roomData.contents;
       characters = _formatCharacters(roomData.characters);
       exits = roomData.exits.filter((exit) => {
         return (
@@ -99,14 +99,59 @@
   <section class="room-info">
     <h1 on:click={handleClickTitle}>{name}</h1>
     <p>{@html desc}</p>
-    {#if contents}
-      <p>
-        {contents}
-        {#if characters}
-          <span>{characters}</span>
+    <p>
+      {#if contents}
+        {#if contents.length === 1}
+          <div>You see <span id={contents[0] + "0"}>a {contents[0]}</span></div>
+          <Popover target={contents[0] + "0"}
+            ><div>look</div>
+            <div>get</div></Popover
+          >
         {/if}
-      </p>
-    {/if}
+        {#if contents.length === 2}
+          <div>
+            You see <span id={contents[0] + "0"}>a {contents[0]}</span> and
+            <span id={contents[1] + "1"}>a {contents[1]}.</span>
+          </div>
+          <Popover target={contents[0] + "0"}>
+            <div>look</div>
+            <div>get</div>
+          </Popover>
+          <Popover target={contents[0] + "1"}>
+            <div>look</div>
+            <div>get</div>
+          </Popover>
+        {/if}
+        {#if contents.length > 2}
+          <div>
+            You see <span id={contents[0] + "0"}> a {contents[0]},</span>
+            {#each contents as item, i}
+              {#if i > 0 && i < contents.length - 1}
+                <span id={item + i}>a {contents[i]}</span>
+                <Popover target={item + i}>
+                  <div>look</div>
+                  <div>get</div>
+                </Popover>
+              {/if}
+            {/each}
+            <span id={contents[contents.length - 1]}
+              >and a {contents[contents.length - 1]}.
+            </span>
+            {#if characters}
+              <span>{characters}</span>
+            {/if}
+          </div>
+          <Popover target={contents[0] + "0"}>
+            <div>look</div>
+            <div>get</div>
+          </Popover>
+          <Popover target={contents[contents.length - 1]}>
+            <div>look</div>
+            <div>get</div>
+          </Popover>
+        {/if}
+      {/if}
+    </p>
 
     <p>
       {#if exits.length > 0}
@@ -119,16 +164,6 @@
       {/each}
     </p>
   </section>
-
-  <div class="mt-3">
-	<Button id='btn-bottom'>Click for bottom</Button>
-	<Popover
-	  target='btn-bottom'
-	  placement='bottom'
-	>
-	  This is a Popover on the Bottom of the trigger.
-	</Popover>
-  </div>
 
   <section bind:this={scrollableDiv} class="echo-log">
     {#each echoLogs as exit}
