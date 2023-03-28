@@ -1,5 +1,6 @@
 <script>
 	import { afterUpdate } from "svelte";
+	import { Button, Popover } from 'sveltestrap';
 
 	let name;
 	let desc;
@@ -108,6 +109,15 @@
 			{/each}
 		</p>
 	</section>
+
+	<Button id={`btn-bottom`}>Click for bottom</Button>
+    <Popover
+      target={`btn-bottom`}
+      Bottom
+      title={`Popover bottom`}
+    >
+      This is a Popover on the bottom of the trigger.
+    </Popover>
 
 	<section bind:this={scrollableDiv} class="echo-log">
 		{#each echoLogs as exit}
