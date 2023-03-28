@@ -7,7 +7,7 @@
   let contents = [];
   let characters = [];
   let exits = [];
-  let msgToEvennia;
+  let formInput;
   let echoLogs = [];
   let scrollableDiv;
 
@@ -39,19 +39,18 @@
     });
   }
 
-  function handleClickExit(exit) {
-    Evennia.msg("text", [exit]);
-    echoLogs = [];
-  }
-
   function handleClickTitle() {
     Evennia.msg("text", ["look"]);
     echoLogs = [];
   }
 
   function onSubmit(e) {
-    Evennia.msg("text", [msgToEvennia]);
-    msgToEvennia = "";
+    Evennia.msg("text", [formInput]);
+    formInput = "";
+  }
+
+  function evenniaMsg(str) {
+    Evennia.msg("text", [str])
   }
 
 
@@ -144,7 +143,7 @@
         You can go
       {/if}
       {#each exits as exit}
-        <button on:click={() => handleClickExit(exit)}>{exit}</button><span
+        <button on:click={() => evenniaMsg(exit)}>{exit}</button><span
           >&nbsp;</span
         >
       {/each}
@@ -157,8 +156,8 @@
     {/each}
   </section>
 
-  <form class="msg-to-evennia" on:submit|preventDefault={onSubmit}>
-    <input bind:value={msgToEvennia} type="text" />
+  <form class="form-input" on:submit|preventDefault={onSubmit}>
+    <input bind:value={formInput} type="text" />
   </form>
 </main>
 
@@ -186,7 +185,7 @@
     scroll-behavior: smooth;
   }
 
-  .msg-to-evennia {
+  .form-input {
     flex: 0 0 auto;
   }
 
