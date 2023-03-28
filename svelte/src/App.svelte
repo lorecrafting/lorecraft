@@ -93,8 +93,8 @@
         {#if contents.length === 1}
           <div>You see <span id={contents[0] + "0"}>a {contents[0]}.</span></div>
           <Popover target={contents[0] + "0"}
-            ><div>look</div>
-            <div>get</div></Popover
+            ><div on:click={()=> evenniaMsg(`look ${contents[0]}`)}>look</div>
+            <div on:click={()=> evenniaMsg(`get ${contents[0]}`)}>get</div></Popover
           >
         {/if}
         {#if contents.length === 2}
@@ -103,12 +103,12 @@
             <span id={contents[1] + "1"}>a {contents[1]}.</span>
           </div>
           <Popover target={contents[0] + "0"}>
-            <div>look</div>
-            <div>get</div>
+            <div on:click={()=> evenniaMsg(`look ${contents[0]}`)}>look</div>
+            <div on:click={()=> evenniaMsg(`get ${contents[0]}`)}>get</div>
           </Popover>
-          <Popover target={contents[0] + "1"}>
-            <div>look</div>
-            <div>get</div>
+          <Popover target={contents[1] + "1"}>
+            <div on:click={()=> evenniaMsg(`look ${contents[1]}`)}>look</div>
+            <div on:click={()=> evenniaMsg(`look ${contents[1]}`)}>get</div>
           </Popover>
         {/if}
         {#if contents.length > 2}
@@ -118,8 +118,8 @@
               {#if i > 0 && i < contents.length - 1}
                 <span id={item + i}>a {contents[i]}</span>
                 <Popover target={item + i}>
-                  <div>look</div>
-                  <div>get</div>
+                  <div on:click={()=> evenniaMsg(`look ${item}`)}>look</div>
+                  <div on:click={()=> evenniaMsg(`get ${item}`)}>get</div>
                 </Popover>
               {/if}
             {/each}
@@ -131,12 +131,12 @@
             {/if}
           </div>
           <Popover target={contents[0] + "0"}>
-            <div>look</div>
-            <div>get</div>
+            <div on:click={()=> evenniaMsg(`look ${contents[0]}`)}>look</div>
+            <div on:click={()=> evenniaMsg(`get ${contents[0]}`)}>get</div>
           </Popover>
           <Popover target={contents[contents.length - 1]}>
-            <div>look</div>
-            <div>get</div>
+            <div on:click={()=> evenniaMsg(`look ${contents[contents.length-1]}`)}>look</div>
+            <div on:click={()=> evenniaMsg(`look ${contents[contents.length-1]}`)}>get</div>
           </Popover>
         {/if}
       {/if}
