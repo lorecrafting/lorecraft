@@ -53,6 +53,10 @@
     Evennia.msg("text", [str])
   }
 
+  function handleClickExit(exit) {
+    Evennia.msg("text", [exit]);
+    echoLogs = [];
+  }
 
   function _formatCharacters(characters) {
     let str;
@@ -87,7 +91,7 @@
     <p>
       {#if contents}
         {#if contents.length === 1}
-          <div>You see <span id={contents[0] + "0"}>a {contents[0]}</span></div>
+          <div>You see <span id={contents[0] + "0"}>a {contents[0]}.</span></div>
           <Popover target={contents[0] + "0"}
             ><div>look</div>
             <div>get</div></Popover
@@ -143,7 +147,7 @@
         You can go
       {/if}
       {#each exits as exit}
-        <button on:click={() => evenniaMsg(exit)}>{exit}</button><span
+        <button on:click={() => handleClickExit(exit)}>{exit}</button><span
           >&nbsp;</span
         >
       {/each}
